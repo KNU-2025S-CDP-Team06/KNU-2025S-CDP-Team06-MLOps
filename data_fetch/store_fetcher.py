@@ -29,8 +29,3 @@ def fetch_store(mb_id:str, name:str):
     }
 
     return store_info
-
-stores = load_store_data()
-for store_name in stores:
-    mb_id = stores[store_name]
-    print(fetch_store(mb_id, store_name))
