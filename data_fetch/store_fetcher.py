@@ -13,8 +13,14 @@ def load_store_data():
         return json.load(f)
     
 def fetch_store(mb_id:str, name:str):
-    url = config.MOKI_STORE_INFO_URL+f"mb_id={mb_id}"+f"&mb_password={config.STORE_PASSWORD}"
-    store_data = requests.get(url).json()
+
+    url = config.MOKI_STORE_INFO_URL
+    params = {
+        "mb_id" : mb_id,
+        "mb_password" : config.STORE_PASSWORD
+    }
+    store_data = requests.get(url, params=params).json()
+    
     address = store_data["mb_addr"]
     if address == " ":
         address = config.TEMPORARY_ADDRESS
