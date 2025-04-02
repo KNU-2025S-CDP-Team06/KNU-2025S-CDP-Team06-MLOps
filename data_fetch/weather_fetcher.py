@@ -3,6 +3,7 @@ import os
 import requests
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from config import config
+from datetime import datetime
 
 API_KEY = config.OPEN_WEAHTER_API_KEY
 
@@ -40,9 +41,11 @@ def fetch_weather(latitude, longitude, date):
             most_common_weather = max(set(weather_conditions), key=weather_conditions.count)
         else:
             most_common_weather = "Unknown"
+        from datetime import datetime
 
         weather_info = {
             "date": date.strftime('%Y-%m-%d'),
+            "weekday": date.weekday(),
             "feelslike": round(avg_feels_like, 1) if avg_feels_like else None,
             "precipitation": round(precipitation, 1),
             "weather": most_common_weather
@@ -51,3 +54,5 @@ def fetch_weather(latitude, longitude, date):
         return weather_info
     
     return None
+
+print(fetch_weather(37.123123, 127.123123, datetime(2025,4,1)))
