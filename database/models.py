@@ -15,6 +15,7 @@ class Store(Base):
     address = Column(String(500), nullable=False)
     latitude = Column(Float, nullable=False)
     longitude = Column(Float, nullable=False)
+    cluster = Column(int, nullable=True)
 
     # 관계 설정 (1:N)
     sales = relationship("Sales", backref="store", cascade="all, delete")
@@ -34,5 +35,6 @@ class Weather(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     store_id = Column(Integer, ForeignKey('store.id', ondelete="CASCADE"), nullable=False)  # FK (매장 ID)
     date = Column(DateTime, nullable=False)  # 날씨 기록 날짜
+    weekday = Column(DateTime, nullable=False) # 날씨 기록 요일
     feeling = Column(Float, nullable=False)  # 체감 기온
     precipitation = Column(Float, nullable=True)  # 강수량
