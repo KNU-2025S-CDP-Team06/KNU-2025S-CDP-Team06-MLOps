@@ -7,7 +7,7 @@ from datetime import datetime
 
 API_KEY = config.OPEN_WEAHTER_API_KEY
 
-def fetch_weather(latitude, longitude, date):
+def load_weather(latitude, longitude, date):
     timestamp = int(date.timestamp())  # 유닉스 타임스탬프 변환
     url = "http://history.openweathermap.org/data/2.5/history/city"
 
@@ -46,7 +46,7 @@ def fetch_weather(latitude, longitude, date):
         weather_info = {
             "date": date.strftime('%Y-%m-%d'),
             "weekday": date.weekday(),
-            "feelslike": round(avg_feels_like, 1) if avg_feels_like else None,
+            "feeling": round(avg_feels_like, 1) if avg_feels_like else None,
             "precipitation": round(precipitation, 1),
             "weather": most_common_weather
         }
