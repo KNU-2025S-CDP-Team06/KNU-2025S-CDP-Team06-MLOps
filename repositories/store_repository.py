@@ -32,11 +32,11 @@ def get_all_stores():
     finally:
         session.close()
 
-def get_store_by_id(store_id):
-    """매장 ID로 조회"""
+def get_store_by_mb_id(mb_id):
+    """사업자 ID로 조회"""
     session = SessionLocal()
     try:
-        return session.query(Store).filter(Store.store_id == store_id).first()
+        return session.query(Store).filter(Store.mb_id == mb_id).first()
     finally:
         session.close()
 
