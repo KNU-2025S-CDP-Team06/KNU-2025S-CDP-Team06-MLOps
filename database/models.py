@@ -15,7 +15,7 @@ class Store(Base):
     address = Column(String(500), nullable=False)
     latitude = Column(Float, nullable=False)
     longitude = Column(Float, nullable=False)
-    cluster = Column(int, nullable=True)
+    cluster = Column(Integer, nullable=True)
 
     # 관계 설정 (1:N)
     sales = relationship("Sales", backref="store", cascade="all, delete")
