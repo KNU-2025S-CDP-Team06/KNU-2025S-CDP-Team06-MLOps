@@ -54,5 +54,3 @@ def fetch_weather(latitude, longitude, date):
         return weather_info
     
     return None
-
-print(fetch_weather(37.123123, 127.123123, datetime(2025,4,1)))
