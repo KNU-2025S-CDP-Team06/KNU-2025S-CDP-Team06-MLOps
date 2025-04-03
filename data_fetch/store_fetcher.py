@@ -6,7 +6,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 import requests
 from config import config
-import geocode_converter
+from . import geocode_converter
 
 def load_store_data():
     with open(STORE_JSON_PATH, "r", encoding="utf-8") as f:
