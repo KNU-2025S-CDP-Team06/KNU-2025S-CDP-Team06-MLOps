@@ -35,6 +35,7 @@ class Weather(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     store_id = Column(Integer, ForeignKey('store.id', ondelete="CASCADE"), nullable=False)  # FK (매장 ID)
     date = Column(DateTime, nullable=False)  # 날씨 기록 날짜
-    weekday = Column(DateTime, nullable=False) # 날씨 기록 요일
+    weekday = Column(Integer, nullable=False) # 날씨 기록 요일
     feeling = Column(Float, nullable=False)  # 체감 기온
     precipitation = Column(Float, nullable=True)  # 강수량
+    weather = Column(String(255), nullable=False) # 날씨
