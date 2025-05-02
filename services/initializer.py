@@ -41,3 +41,9 @@ def initialize_weather_data():
             for weather in weather_list:
                 print(weather.__dict__)
             current_date += timedelta(days=1)
+
+if __name__ == '__main__':
+    initialize_store_data()
+    initialize_weather_data()
+    # initialize_sales_data()
+    print(f"[Initializer] {datetime.now()} 완료")
