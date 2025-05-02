@@ -1,7 +1,7 @@
 import json
 import os
 import sys
-STORE_JSON_PATH = os.path.join(os.path.dirname(__file__), "../data/stores.json")
+STORE_JSON_PATH = os.path.join(os.path.dirname(__file__), "../stores.json")
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 import requests
