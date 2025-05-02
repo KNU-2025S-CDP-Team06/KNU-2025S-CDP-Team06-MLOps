@@ -1,0 +1,1 @@
+* 0 * * * /usr/local/bin/python /app/services/daily_tasks.py >> /app/cron.log 2>&1
