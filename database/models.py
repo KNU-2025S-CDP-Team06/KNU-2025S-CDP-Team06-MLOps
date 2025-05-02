@@ -23,7 +23,7 @@ class Store(Base):
     weather = relationship("Weather", backref="store", cascade="all, delete")
 
 class DailyData(Base):
-    __tablename__ = "dailyData"
+    __tablename__ = "daily_data"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     store_id = Column(Integer, ForeignKey('store.id', ondelete="CASCADE"), nullable=False)  # FK (매장 ID)
@@ -32,13 +32,13 @@ class DailyData(Base):
     total_count = Column(Integer, nullable=False)  # 총 판매 개수
 
     # 관계 설정 (1:N)
-    sales = relationship("Sales", backref="dailyData", cascade="all, delete")
+    sales = relationship("Sales", backref="daily_data", cascade="all, delete")
 
 class Sales(Base):
     __tablename__ = "sales"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    dailydata_id = Column(Integer, ForeignKey('dailyData.id', ondelete="CASCADE"), nullable=False) # FK (DaliyData ID)
+    daily_data_id = Column(Integer, ForeignKey('daily_data.id', ondelete="CASCADE"), nullable=False) # FK (DaliyData ID)
     store_id = Column(Integer, ForeignKey('store.id', ondelete="CASCADE"), nullable=False)  # FK (매장 ID)
     menu_id = Column(Integer, ForeignKey('menu.id', ondelete="CASCADE"), nullable=False)  # FK (메뉴 ID)
     datetime = Column(DateTime, nullable=False)  # 판매 시간
