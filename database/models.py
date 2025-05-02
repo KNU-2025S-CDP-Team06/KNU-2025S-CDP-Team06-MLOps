@@ -19,12 +19,8 @@ class Store(Base):
 
     # 관계 설정 (1:N)
     dailyData = relationship("DailyData", backref="store", cascade="all, delete")
-    weeklyData = relationship("WeeklyData", backref="store", cascade="all, delete")
-    monthlyData = relationship("MonthlyData", backref="store", cascade="all, delete")
-    predict = relationship("Predict", backref="store", cascade="all, delete")
+    forecast = relationship("Forecast", backref="store", cascade="all, delete")
     weather = relationship("Weather", backref="store", cascade="all, delete")
-    
-
 
 class DailyData(Base):
     __tablename__ = "dailyData"
@@ -37,24 +33,6 @@ class DailyData(Base):
 
     # 관계 설정 (1:N)
     sales = relationship("Sales", backref="dailyData", cascade="all, delete")
-
-class WeeklyData(Base):
-    __tablename__ = "weeklyData"
-
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    store_id = Column(Integer, ForeignKey('store.id', ondelete="CASCADE"), nullable=False)  # FK (매장 ID)
-    date = Column(DateTime, nullable=False)  # 매출 발생 날짜
-    total_revenue = Column(Integer, nullable=False)  # 총 매출 금액
-    total_count = Column(Integer, nullable=False)  # 총 판매 개수
-
-class MonthlyData(Base):
-    __tablename__ = "monthlyData"
-
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    store_id = Column(Integer, ForeignKey('store.id', ondelete="CASCADE"), nullable=False)  # FK (매장 ID)
-    date = Column(DateTime, nullable=False)  # 매출 발생 날짜
-    total_revenue = Column(Integer, nullable=False)  # 총 매출 금액
-    total_count = Column(Integer, nullable=False)  # 총 판매 개수
 
 class Sales(Base):
     __tablename__ = "sales"
@@ -77,8 +55,8 @@ class Menu(Base):
     # 관계 설정 (1:N)
     sales = relationship("Sales", backref="menu", cascade="all, delete")
 
-class Predict(Base):
-    __tablename__ = "predict"
+class Forecast(Base):
+    __tablename__ = "forecast"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     store_id = Column(Integer, ForeignKey('store.id', ondelete="CASCADE"), nullable=False)  # FK (매장 ID)

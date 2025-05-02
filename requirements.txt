@@ -1,0 +1,4 @@
+requests==2.32.3
+sqlalchemy==2.0.34
+pymysql==1.1.1
+datetime==5.5
