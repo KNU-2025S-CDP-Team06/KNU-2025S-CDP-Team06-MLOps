@@ -8,7 +8,6 @@ def save_menu_data(menu_data_list):
     session = SessionLocal()
     try:
         for menu_data in menu_data_list:
-            print(menu_data)
             # key 값 변경
             menu_data["id"] = menu_data.pop("menu_id")
             menu_data["name"] = menu_data.pop("menu_name")
