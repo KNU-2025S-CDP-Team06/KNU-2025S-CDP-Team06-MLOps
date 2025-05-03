@@ -1,10 +1,10 @@
 import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from database.db_manager import SessionLocal
-from database.models import Sales, Store
+from database.models import DailyData, Store
 from sqlalchemy import func
 
-def save_sales(mb_id, sales_data):
+def save_daily_data(mb_id, daily_data):
     """매출 데이터 저장 (중복된 id가 있으면 업데이트)"""
     session = SessionLocal()
     try:
@@ -14,22 +14,22 @@ def save_sales(mb_id, sales_data):
             print(f"매장 정보 없음: {mb_id}")
             return
 
-        sales_data["store_id"] = store.id  # store_id 매핑
+        daily_data["store_id"] = store.id  # store_id 매핑
 
         # 2. 기존 매출 데이터 확인
-        sales = session.query(Sales).filter(
-            (Sales.store_id == sales_data["store_id"]) & 
-            (Sales.date == sales_data["date"])
+        exsiting_daily_data = session.query(DailyData).filter(
+            (DailyData.store_id == daily_data["store_id"]) & 
+            (DailyData.date == daily_data["date"])
         ).first()
         
-        if sales:
+        if exsiting_daily_data:
             # 기존 데이터 업데이트
-            for key, value in sales_data.items():
-                setattr(sales, key, value)
+            for key, value in daily_data.items():
+                setattr(exsiting_daily_data, key, value)
         else:
             # 새로운 데이터 삽입
-            sales = Sales(**sales_data)
-            session.add(sales)
+            new_daily_data = DailyData(**daily_data)
+            session.add(new_daily_data)
 
         session.commit()
     except Exception as e:
@@ -38,27 +38,27 @@ def save_sales(mb_id, sales_data):
     finally:
         session.close()
 
-def get_sales_by_date(date):
+def get_daily_data_by_date(date):
     """특정 날짜의 매출 데이터 조회"""
     session = SessionLocal()
     try:
-        return session.query(Sales).filter(func.date(Sales.date) == date.date()).all()
+        return session.query(DailyData).filter(func.date(DailyData.date) == date.date()).all()
     finally:
         session.close()
 
-def get_sales_by_store(store_id):
+def get_daily_data_by_store(store_id):
     """특정 매장의 매출 데이터 조회"""
     session = SessionLocal()
     try:
-        return session.query(Sales).filter(Sales.store_id == store_id).all()
+        return session.query(DailyData).filter(DailyData.store_id == store_id).all()
     finally:
         session.close()
 
-def delete_sales_by_date(date):
+def delete_daily_data_by_date(date):
     """특정 날짜의 매출 데이터 삭제"""
     session = SessionLocal()
     try:
-        session.query(Sales).filter(Sales.date == date).delete()
+        session.query(DailyData).filter(DailyData.date == date).delete()
         session.commit()
     except Exception as e:
         session.rollback()
