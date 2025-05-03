@@ -2,7 +2,7 @@ import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from datetime import datetime, timedelta
 
-from data_fetch import store_fetcher, sales_fetcher, weather_fetcher
+from data_fetch import daily_data_fetcher, store_fetcher, weather_fetcher
 from repositories import store_repository, sales_repository, weather_repository
 
 def initialize_store_data():
@@ -20,7 +20,7 @@ def initialize_sales_data():
         current_date = start_date
         mb_id = stores[store_name]
         while current_date <= end_date:
-            sales_data = sales_fetcher.load_sales(mb_id, current_date)
+            sales_data = daily_data_fetcher.load_sales(mb_id, current_date)
             sales_repository.save_sales(mb_id, sales_data)
             current_date += timedelta(days=1)
 

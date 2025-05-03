@@ -3,7 +3,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from datetime import datetime, timedelta
 
-from data_fetch import sales_fetcher, weather_fetcher
+from data_fetch import daily_data_fetcher, weather_fetcher
 from repositories import store_repository, sales_repository, weather_repository
 
 def add_sales_and_weather():
