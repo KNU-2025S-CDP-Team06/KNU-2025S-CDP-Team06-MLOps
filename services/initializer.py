@@ -2,14 +2,20 @@ import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from datetime import datetime, timedelta
 
-from data_fetch import daily_data_fetcher, store_fetcher, weather_fetcher
-from repositories import store_repository, daily_data_repository, weather_repository
+from data_fetch import daily_data_fetcher, store_fetcher, weather_fetcher, menu_fetcher
+from repositories import store_repository, daily_data_repository, weather_repository, menu_repository
 
 def initialize_store_data():
     stores = store_fetcher.load_store_data()
     for store_name in stores:
         store_data = store_fetcher.fetch_store(stores[store_name],store_name)
         store_repository.save_store(store_data)
+
+def initialize_menu_data():
+    stores = store_fetcher.load_store_data()
+    for store_name in stores:
+        menu_data = menu_fetcher.load_menu(stores[store_name])
+        menu_repository.save_menu_data(menu_data)
 
 def initialize_daily_data():
     stores = store_fetcher.load_store_data()
@@ -44,6 +50,7 @@ def initialize_weather_data():
 
 if __name__ == '__main__':
     initialize_store_data()
-    initialize_weather_data()
+    initialize_menu_data()
+    # initialize_weather_data()
     # initialize_daily_data()
     print(f"[Initializer] {datetime.now()} 완료")
