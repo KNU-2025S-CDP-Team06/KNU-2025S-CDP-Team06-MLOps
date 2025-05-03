@@ -14,15 +14,16 @@ def load_sales(mb_id: str, current_date:datetime):
     }
     url = config.MOKI_SALES_API_URL
     sales_data_list = requests.get(url, params=params).json()['data']
-
-    sales_info = []
-    for sales_data in sales_data_list:
-        date_time_str = f"{sales_data['date']} {sales_data['hour']}:00:00"
-        date_time_obj = datetime.strptime(date_time_str, "%Y-%m-%d %H:%M:%S")
-        sales_info.append( {
-            "mb_id" : mb_id,
-            "menu_id" : sales_data['menu_id'],
-            "count" : sales_data['count'],
-            "datetime" : date_time_obj
-        })
-    return sales_info
+    
+    if sales_data_list:
+        sales_info = []
+        for sales_data in sales_data_list:
+            date_time_str = f"{sales_data['date']} {sales_data['hour']}:00:00"
+            date_time_obj = datetime.strptime(date_time_str, "%Y-%m-%d %H:%M:%S")
+            sales_info.append( {
+                "mb_id" : mb_id,
+                "menu_id" : sales_data['menu_id'],
+                "count" : sales_data['count'],
+                "datetime" : date_time_obj
+            })
+        return sales_info
