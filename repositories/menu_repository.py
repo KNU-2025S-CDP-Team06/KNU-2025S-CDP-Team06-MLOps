@@ -25,7 +25,7 @@ def save_menu_data(menu_data_list):
                 new_menu_data = Menu(**menu_data)
                 session.add(new_menu_data)
 
-                print(f"메뉴 저장 완료: menu_name{menu_data["name"]}")
+                print(f"메뉴 저장 완료: menu_name={menu_data["name"]}")
             session.commit()
     except Exception as e:
         session.rollback()
@@ -43,13 +43,13 @@ def update_menu_price(menu_id, revenue, count, name):
         menu = session.query(Menu).filter(Menu.id == menu_id).first()
         if not menu:
             new_menu_list = [{
-                "id" : menu_id,
-                "name" : name,
-                "image" : None,
+                "menu_id" : menu_id,
+                "menu_name" : name,
+                "menu_img" : None,
                 "price" : price
             }]
             save_menu_data(new_menu_list)
-            print(f"새로윤 매뉴 추가 완료: menu_id={menu_id}")
+            print(f"새로운 매뉴 추가 완료: menu_id={menu_id}")
         else:
             if menu.price is None:
                 menu.price = price
