@@ -111,9 +111,9 @@ if __name__ == "__main__":
 
     print(f"[Initializer] {datetime.now()} Weather & Daily Data 시작")
     with ThreadPoolExecutor(max_workers=2) as executor:
-        #future_weather = executor.submit(initialize_weather_data_parallel)
+        future_weather = executor.submit(initialize_weather_data_parallel)
         future_daily = executor.submit(initialize_daily_data_parallel)
-        #future_weather.result()
+        future_weather.result()
         future_daily.result()
 
     print(f"[Initializer] {datetime.now()} Sales Data 시작")
