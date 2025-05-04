@@ -31,3 +31,22 @@ def save_menu_data(menu_data_list):
         print(f"menu 저장/업데이트 오류: {e}")
     finally:
         session.close()
+
+def update_menu_price(menu_id, revenue, count):
+    session = SessionLocal()
+    try:
+        if count == 0:
+            return  # 가격 계산 불가
+
+        price = int(revenue) // int(count)
+        menu = session.query(Menu).filter(Menu.id == menu_id).first()
+
+        if menu.price is None:
+            menu.price = price
+
+        session.commit()
+    except Exception as e:
+        session.rollback()
+        print(f"[menu_repository] 가격 저장 오류: {e}")
+    finally:
+        session.close()
