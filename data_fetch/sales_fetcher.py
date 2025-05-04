@@ -22,7 +22,7 @@ def load_sales(mb_id: str, current_date:datetime):
             date_time_str = f"{sales_data['date']} {sales_data['hour']}:00:00"
             date_time_obj = datetime.strptime(date_time_str, "%Y-%m-%d %H:%M:%S")
 
-            update_menu_price(sales_data['menu_id'], sales_data['revenue'], sales_data['count'])
+            update_menu_price(sales_data['menu_id'], sales_data['revenue'], sales_data['count'], sales_data["menu_name"])
 
             sales_info.append( {
                 "mb_id" : mb_id,
