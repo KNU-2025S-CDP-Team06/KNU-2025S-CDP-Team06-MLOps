@@ -30,7 +30,8 @@ def save_daily_data(mb_id, daily_data):
             # 새로운 데이터 삽입
             new_daily_data = DailyData(**daily_data)
             session.add(new_daily_data)
-
+            print(f"일일 판매 데이터 저장 완료: daily_data_date={daily_data["date"]}")
+            
         session.commit()
     except Exception as e:
         session.rollback()

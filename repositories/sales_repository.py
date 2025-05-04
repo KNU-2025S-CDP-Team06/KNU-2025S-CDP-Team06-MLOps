@@ -40,7 +40,7 @@ def save_sales_data(mb_id, sales_data_list):
                     # 새로운 데이터 삽입
                     new_sales_data = Sales(**sales_data)
                     session.add(new_sales_data)
-
+                    print(f"1회 판매 데이터 저장 완료: sales_datetime={sales_data["datetime"]}")
                 session.commit()
     except Exception as e:
         session.rollback()

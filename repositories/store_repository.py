@@ -17,6 +17,7 @@ def save_store(store_data):
             store = Store(**store_data)
             session.add(store)
 
+        print(f"매장 저장 완료: mb_id={store.mb_id}")
         session.commit()
     except Exception as e:
         session.rollback()
