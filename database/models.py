@@ -50,7 +50,7 @@ class Menu(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(255), nullable=False) # 메뉴명
     image = Column(String(255), nullable=False) # 메뉴 이미지 URL
-    price = Column(Integer, nullable=False) # 메뉴 가격
+    price = Column(Integer, nullable=True) # 메뉴 가격
 
     # 관계 설정 (1:N)
     sales = relationship("Sales", backref="menu", cascade="all, delete")
