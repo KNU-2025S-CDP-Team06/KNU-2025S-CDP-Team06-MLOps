@@ -40,7 +40,7 @@ def fetch_weather_for_date(mb_id, lat, lng, current_date):
 def initialize_weather_data_parallel():
     stores = store_fetcher.load_store_data()
     end_date = datetime.today() - timedelta(days=1)
-    start_date = end_date - timedelta(days=365)
+    start_date = end_date - timedelta(days=730)
 
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
         futures = []
@@ -87,7 +87,7 @@ def fetch_sales_for_date(mb_id, current_date):
 def initialize_sales_data_parallel_store_date():
     stores = store_fetcher.load_store_data()
     end_date = datetime.today() - timedelta(days=1)
-    start_date = end_date - timedelta(days=365)
+    start_date = end_date - timedelta(days=730)
 
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
         futures = []
