@@ -25,7 +25,7 @@ def save_menu_data(menu_data_list):
                 new_menu_data = Menu(**menu_data)
                 session.add(new_menu_data)
 
-                print(f"메뉴 저장 완료: menu_name={menu_data["name"]}")
+                print(f"메뉴 저장 완료: menu_name={menu_data['name']}")
             session.commit()
     except Exception as e:
         session.rollback()
