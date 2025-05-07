@@ -25,22 +25,10 @@ def save_sales_data(mb_id, sales_data_list):
                 sales_data['daily_data_id'] = daily_data.id # daliy_data_id 매핑
                 sales_data.pop('mb_id', None) # mb_id 삭제
 
-                # 2. 기존 매출 데이터 확인
-                exsiting_sales_data = session.query(Sales).filter(
-                    (Sales.store_id == sales_data["store_id"]) & 
-                    (Sales.datetime == sales_data["datetime"]) &
-                    (Sales.daily_data_id == sales_data["daily_data_id"])
-                ).first()
-                
-                if exsiting_sales_data:
-                    # 기존 데이터 업데이트
-                    for key, value in sales_data.items():
-                        setattr(exsiting_sales_data, key, value)
-                else:
-                    # 새로운 데이터 삽입
-                    new_sales_data = Sales(**sales_data)
-                    session.add(new_sales_data)
-                    print(f"1회 판매 데이터 저장 완료: sales_datetime={sales_data['datetime']}")
+                # 새로운 데이터 삽입
+                new_sales_data = Sales(**sales_data)
+                session.add(new_sales_data)
+                print(f"1회 판매 데이터 저장 완료: sales_datetime={sales_data['datetime']}")
                 session.commit()
     except Exception as e:
         session.rollback()
