@@ -6,8 +6,10 @@ from datetime import datetime, timedelta
 from data_fetch import daily_data_fetcher, weather_fetcher, sales_fetcher
 from repositories import store_repository, daily_data_repository, weather_repository, sales_repository
 
+from utils.get_today import get_today
+
 def add_daily_data_and_weather():
-    target_date = datetime.today() - timedelta(days=1)
+    target_date = get_today() - timedelta(days=1)
     stores = store_repository.get_all_stores()
     for store in stores:
         # 1. 일일 매출 데이터 저장
@@ -24,4 +26,4 @@ def add_daily_data_and_weather():
 
 if __name__ == '__main__':
     add_daily_data_and_weather()
-    print(f"[Daily Task] {datetime.today() - timedelta(days=1)} 완료")
+    print(f"[Daily Task] {get_today() - timedelta(days=1)} 완료")

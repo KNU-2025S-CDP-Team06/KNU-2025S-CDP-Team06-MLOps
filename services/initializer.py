@@ -1,6 +1,7 @@
 import sys, os
 from datetime import datetime, timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from utils.get_today import get_today
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
@@ -39,7 +40,7 @@ def fetch_weather_for_date(mb_id, lat, lng, current_date):
 
 def initialize_weather_data_parallel():
     stores = store_fetcher.load_store_data()
-    end_date = datetime.today() - timedelta(days=1)
+    end_date = get_today() - timedelta(days=1)
     start_date = end_date - timedelta(days=365)
 
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
@@ -63,7 +64,7 @@ def fetch_daily_for_date(mb_id, current_date):
 
 def initialize_daily_data_parallel():
     stores = store_fetcher.load_store_data()
-    end_date = datetime.today() - timedelta(days=1)
+    end_date = get_today() - timedelta(days=1)
     start_date = end_date - timedelta(days=730)
 
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
@@ -86,7 +87,7 @@ def fetch_sales_for_date(mb_id, current_date):
 
 def initialize_sales_data_parallel_store_date():
     stores = store_fetcher.load_store_data()
-    end_date = datetime.today() - timedelta(days=1)
+    end_date = get_today() - timedelta(days=1)
     start_date = end_date - timedelta(days=730)
 
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
