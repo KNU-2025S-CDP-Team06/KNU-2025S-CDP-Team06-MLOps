@@ -1,1 +1,2 @@
-* 0 * * * /usr/local/bin/python /app/services/daily_tasks.py >> /app/cron.log 2>&1
+TZ=Asia/Seoul
+0 0 * * * /usr/local/bin/python /app/services/daily_tasks.py >> /app/cron.log 2>&1
