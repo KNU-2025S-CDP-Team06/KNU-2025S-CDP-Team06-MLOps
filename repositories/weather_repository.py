@@ -30,7 +30,8 @@ def save_weather(mb_id, weather_data):
             # 새로운 데이터 삽입
             weather = Weather(**weather_data)
             session.add(weather)
-
+            print(f"날씨 저장 완료: weather_date={weather.date}, store_id={weather.store_id}")
+            
         session.commit()
     except Exception as e:
         session.rollback()
