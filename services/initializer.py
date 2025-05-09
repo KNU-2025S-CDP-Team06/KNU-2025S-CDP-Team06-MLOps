@@ -1,11 +1,11 @@
 import sys, os
 from datetime import datetime, timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from utils.get_today import get_today
 from daily_tasks import daily_tasks
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
+from utils.get_today import get_today
 from data_fetch import (
     daily_data_fetcher,
     store_fetcher,
