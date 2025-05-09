@@ -8,8 +8,9 @@ from repositories import store_repository, daily_data_repository, weather_reposi
 
 from utils.get_today import get_today
 
-def add_daily_data_and_weather():
+def daily_tasks():
     target_date = get_today() - timedelta(days=1)
+    forecast_date = get_today() + timedelta(days=1)
     stores = store_repository.get_all_stores()
     for store in stores:
         # 1. 일일 매출 데이터 저장
@@ -21,9 +22,13 @@ def add_daily_data_and_weather():
         sales_repository.save_sales_data(store.mb_id, sales_data)
 
         # 3. 일일 날씨 데이터 저장
-        weather_data = weather_fetcher.load_weather(store.latitude, store.longitude, target_date)
+        weather_data = weather_fetcher.load_history_weather(store.latitude, store.longitude, target_date)
         weather_repository.save_weather(store.mb_id, weather_data)
 
+        # 4. 내일 날씨 데이터 저장
+        forecast_weather_data = weather_fetcher.load_forecast_weather(store.latitude, store.longitude, forecast_date)
+        weather_repository.save_weather(store.mb_id, forecast_weather_data)
+
 if __name__ == '__main__':
-    add_daily_data_and_weather()
-    print(f"[Daily Task] {get_today() - timedelta(days=1)} 완료")
+    daily_tasks()
+    print(f"[Daily Task] {datetime.now()} 완료")
