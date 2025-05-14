@@ -1,2 +1,4 @@
 TZ=Asia/Seoul
 0 0 * * * /usr/local/bin/python /app/services/daily_tasks.py >> /app/cron.log 2>&1
+0 1 * * 0 /usr/local/bin/python /app/services/train/send_train_data.py prophet >> /app/cron.log 2>&1
+0 1 1 * * /usr/local/bin/python /app/services/train/send_train_data.py xgboost >> /app/cron.log 2>&1
