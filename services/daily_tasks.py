@@ -30,6 +30,7 @@ def daily_tasks():
         forecast_weather_data = weather_fetcher.load_forecast_weather(store.latitude, store.longitude, forecast_date)
         weather_repository.save_weather(store.mb_id, forecast_weather_data)
 
+    # 5. 내일 날시 데이터 및 과거 매출 데이터 기반으로 예측값 요청 후 DB에 저장
     send_forecast_data()
 
 if __name__ == '__main__':
