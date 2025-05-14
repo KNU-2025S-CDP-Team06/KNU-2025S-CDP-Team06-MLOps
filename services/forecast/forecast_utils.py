@@ -10,41 +10,35 @@ from config import config
 import pandas as pd
 from database.models import DailyData, Store, Weather
 from datetime import date, timedelta
-from pprint import pprint
 
 def load_data():
     session: Session = SessionLocal()
 
-    today = date.today() - timedelta(days=5)
+    tomorrow = date.today() + timedelta(days=1)
     target_dates = [
-        today - timedelta(days=1),
-        today - timedelta(days=2),
-        today - timedelta(days=7),
-        today - timedelta(days=14),
+        tomorrow - timedelta(days=1),
+        tomorrow - timedelta(days=2),
+        tomorrow - timedelta(days=7),
+        tomorrow - timedelta(days=14),
     ]
 
     # 오늘 기준 base 데이터
     base_results = (
         session.query(
-            DailyData.store_id,
+            Weather.store_id,
             Store.cluster,
-            DailyData.date,
+            Weather.date,
             Weather.precipitation,
             Weather.weather,
             Weather.feeling
         )
-        .join(Store, DailyData.store_id == Store.id)
-        .outerjoin(
-            Weather,
-            (DailyData.store_id == Weather.store_id) &
-            (DailyData.date == Weather.date)
-        )
-        .filter(DailyData.date == today)
+        .join(Store, Weather.store_id == Store.id)
+        .filter(Weather.date == tomorrow)
         .all()
     )
 
     if not base_results:
-        print("오늘 날짜의 매출 데이터가 없습니다.")
+        print("내일 날짜의 날씨 데이터가 없습니다.")
         return
 
     # 과거 매출 데이터 가져오기
@@ -74,8 +68,6 @@ def load_data():
         "date": row.date,
         "revenue": row.total_revenue
     } for row in past_results])
-
-    pprint(past_df)
 
     # 각 날짜 기준 revenue 붙이기
     base_df["key"] = base_df["store_id"].astype(str) + "_" + base_df["date"].astype(str)
