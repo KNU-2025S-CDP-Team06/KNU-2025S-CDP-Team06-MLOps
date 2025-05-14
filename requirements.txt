@@ -3,3 +3,4 @@ sqlalchemy==2.0.34
 pymysql==1.1.1
 datetime==5.5
 cryptography==44.0.3
+pandas==2.2.2
