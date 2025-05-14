@@ -7,6 +7,7 @@ from data_fetch import daily_data_fetcher, weather_fetcher, sales_fetcher
 from repositories import store_repository, daily_data_repository, weather_repository, sales_repository
 
 from utils.get_today import get_today
+from forecast.send_forecast_data import send_forecast_data
 
 def daily_tasks():
     target_date = get_today() - timedelta(days=1)
@@ -28,6 +29,8 @@ def daily_tasks():
         # 4. 내일 날씨 데이터 저장
         forecast_weather_data = weather_fetcher.load_forecast_weather(store.latitude, store.longitude, forecast_date)
         weather_repository.save_weather(store.mb_id, forecast_weather_data)
+
+    send_forecast_data()
 
 if __name__ == '__main__':
     daily_tasks()
