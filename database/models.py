@@ -12,9 +12,9 @@ class Store(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     mb_id = Column(String(50), nullable=False, unique=True)  # 사업자 번호
     name = Column(String(255), nullable=False)
-    address = Column(String(500), nullable=False)
-    latitude = Column(Float, nullable=False)
-    longitude = Column(Float, nullable=False)
+    address = Column(String(500), nullable=True)
+    latitude = Column(Float, nullable=True)
+    longitude = Column(Float, nullable=True)
     cluster = Column(Integer, nullable=True)
 
     # 관계 설정 (1:N)
@@ -28,8 +28,8 @@ class DailyData(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     store_id = Column(Integer, ForeignKey('store.id', ondelete="CASCADE"), nullable=False)  # FK (매장 ID)
     date = Column(DateTime, nullable=False)  # 매출 발생 날짜
-    total_revenue = Column(Integer, nullable=False)  # 총 매출 금액
-    total_count = Column(Integer, nullable=False)  # 총 판매 개수
+    total_revenue = Column(Integer, nullable=True)  # 총 매출 금액
+    total_count = Column(Integer, nullable=True)  # 총 판매 개수
 
     # 관계 설정 (1:N)
     sales = relationship("Sales", backref="daily_data", cascade="all, delete")
