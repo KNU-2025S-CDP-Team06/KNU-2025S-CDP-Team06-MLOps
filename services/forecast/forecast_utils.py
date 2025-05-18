@@ -11,10 +11,10 @@ import pandas as pd
 from database.models import DailyData, Store, Weather
 from datetime import date, timedelta
 
-def load_data():
+def load_data(days = 0):
     session: Session = SessionLocal()
 
-    tomorrow = date.today() + timedelta(days=1)
+    tomorrow = date.today() + timedelta(days=(1-days))
     target_dates = [
         tomorrow - timedelta(days=1),
         tomorrow - timedelta(days=2),
@@ -102,8 +102,15 @@ def send_file(df : pd.DataFrame):
     print(f"상태 코드: {response.status_code}")
     print(f"응답: {response.text}")
 
-def integration():
+def integration(days = 0):
     try:
-        send_file(load_data())
+        send_file(load_data(days))
     except Exception as e:
         print(f"클러스터 데이터 전송 오류: {e}")
+
+if __name__ == "__main__":
+    argv = sys.argv
+    if len(argv) != 3 or argv[1] != '-b':
+        print(f"usage: python {argv[0]} -b N \nto get N days ago data")
+    else:
+        integration(int(argv[2]))
