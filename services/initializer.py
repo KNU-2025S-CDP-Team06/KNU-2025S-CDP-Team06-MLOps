@@ -2,6 +2,7 @@ import sys, os
 from datetime import datetime, timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from daily_tasks import daily_tasks
+from config import config
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
@@ -104,6 +105,15 @@ def initialize_sales_data_parallel_store_date():
         for future in as_completed(futures):
             future.result()
 
+def initialize_admin():
+    admin_data = {
+        "mb_id" : config.ADMIN_ID,
+        "name" : config.ADMID_NAME,
+        "password" : config.ADMIN_PASSWORD,
+        "Role" : "STORE"
+    }   
+    store_repository.save_store(admin_data)
+
 if __name__ == "__main__":
     print(f"[Initializer] {datetime.now()} Store Data 시작")
     initialize_store_data()
@@ -120,6 +130,9 @@ if __name__ == "__main__":
 
     print(f"[Initializer] {datetime.now()} Sales Data 시작")
     initialize_sales_data_parallel_store_date()
+
+    print(f"[Initializer] {datetime.now()} Admin 시작")
+    initialize_admin()
 
     print(f"[Initializer] {datetime.now()} 완료")
     
