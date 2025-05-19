@@ -16,6 +16,7 @@ class Store(Base):
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
     cluster = Column(Integer, nullable=True)
+    password = Column(String, nullable=False)
 
     # 관계 설정 (1:N)
     dailyData = relationship("DailyData", backref="store", cascade="all, delete")
