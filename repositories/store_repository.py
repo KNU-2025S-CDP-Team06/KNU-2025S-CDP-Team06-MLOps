@@ -1,7 +1,7 @@
 import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from database.db_manager import SessionLocal
-from database.models import Store, RoleEnum
+from database.models import Store, Role
 
 def save_store(store_data):
     """매장 데이터 저장 (중복된 id가 있으면 업데이트)"""
@@ -29,7 +29,7 @@ def get_all_stores():
     """모든 매장 데이터 조회"""
     session = SessionLocal()
     try:
-        return session.query(Store).filter(Store.role == RoleEnum.STORE).all()
+        return session.query(Store).filter(Store.role == Role.STORE).all()
     finally:
         session.close()
 

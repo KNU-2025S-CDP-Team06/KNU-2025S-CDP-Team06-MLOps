@@ -6,7 +6,7 @@ import os, sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'database')))
 
 Base = declarative_base()
-class RoleEnum(enum.Enum):
+class Role(enum.Enum):
     STORE = "STORE"
     ADMIN = "ADMIN"
 
@@ -22,7 +22,7 @@ class Store(Base):
     cluster = Column(Integer, nullable=True)
     password = Column(String, nullable=False)
 
-    role = Column(Enum(RoleEnum), default=RoleEnum.STORE, nullable=True)
+    role = Column(Enum(Role), default=Role.STORE, nullable=True)
 
     # 관계 설정 (1:N)
     dailyData = relationship("DailyData", backref="store", cascade="all, delete")
