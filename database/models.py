@@ -1,10 +1,14 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime, Enum
 from sqlalchemy.orm import relationship,declarative_base
+import enum
 
 import os, sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'database')))
 
 Base = declarative_base()
+class RoleEnum(enum.Enum):
+    STORE = "STORE"
+    ADMIN = "ADMIN"
 
 class Store(Base):
     __tablename__ = "store" 
@@ -17,6 +21,8 @@ class Store(Base):
     longitude = Column(Float, nullable=True)
     cluster = Column(Integer, nullable=True)
     password = Column(String, nullable=False)
+
+    role = Column(Enum(RoleEnum), default=RoleEnum.STORE, nullable=True)
 
     # 관계 설정 (1:N)
     dailyData = relationship("DailyData", backref="store", cascade="all, delete")
