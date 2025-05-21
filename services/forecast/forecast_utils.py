@@ -88,7 +88,7 @@ def load_data(days = 0):
 
     return base_df
 
-def send_file(df : pd.DataFrame):
+def send_file(period:str, df: pd.DataFrame):
     csv_buffer = BytesIO()
     df.to_csv(csv_buffer, index=False)
     csv_buffer.seek(0)
@@ -96,15 +96,15 @@ def send_file(df : pd.DataFrame):
     files = {
         'forecast_file': ('forecast_data.csv', csv_buffer, 'text/csv')
     }
-    url = config.AI_TRIGGER_URL + '/forecast/daily'
+    url = config.AI_TRIGGER_URL + f'/forecast/{period}'
     response = requests.post(url, files=files)
 
     print(f"상태 코드: {response.status_code}")
     print(f"응답: {response.text}")
 
-def integration(days = 0):
+def integration(period, days = 0):
     try:
-        send_file(load_data(days))
+        send_file(period, load_data(days))
     except Exception as e:
         print(f"클러스터 데이터 전송 오류: {e}")
 

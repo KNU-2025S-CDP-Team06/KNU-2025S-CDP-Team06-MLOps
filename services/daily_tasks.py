@@ -31,7 +31,16 @@ def daily_tasks():
         weather_repository.save_weather(store.mb_id, forecast_weather_data)
 
     # 5. 내일 날시 데이터 및 과거 매출 데이터 기반으로 예측값 요청 후 DB에 저장
-    send_forecast_data()
+    from datetime import datetime, timedelta
+    today = datetime.today()
+    tomorrow = today + timedelta(days=1)
+
+    if tomorrow.day == 1:
+        send_forecast_data("monthly") # 매월 말일 데이터 전송
+    elif today.weekday() == 6:
+        send_forecast_data("weekly") # 매주 일요일 데이터 전송
+    else:
+        send_forecast_data() # 매일 데이터 전송
 
 if __name__ == '__main__':
     daily_tasks()
