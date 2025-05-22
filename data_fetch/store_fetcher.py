@@ -37,7 +37,7 @@ def fetch_store(mb_id:str, name:str):
         "address" : address,
         "latitude" : latitude,
         "longitude" : longitude,
-        "Role" : "STORE"
+        "role" : "STORE"
     }
 
     return store_info
