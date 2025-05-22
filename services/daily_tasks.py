@@ -11,7 +11,7 @@ from forecast.send_forecast_data import send_forecast_data
 
 def daily_tasks():
     target_date = get_today() - timedelta(days=1)
-    forecast_date = get_today() + timedelta(days=1)
+    forecast_date = target_date + timedelta(days=2)
     stores = store_repository.get_all_stores()
     for store in stores:
         # 1. 일일 매출 데이터 저장
