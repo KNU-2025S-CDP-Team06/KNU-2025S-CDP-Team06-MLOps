@@ -7,6 +7,10 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import requests
 from config import config
 from . import geocode_converter
+import bcrypt
+
+def hash_password(plain_password: str) -> str:
+    return bcrypt.hashpw(plain_password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
 def load_store_data():
     with open(STORE_JSON_PATH, "r", encoding="utf-8") as f:
@@ -28,6 +32,7 @@ def fetch_store(mb_id:str, name:str):
     latitude, longitude = geocode_converter.convert(address)
     store_info = {
         "mb_id" : mb_id,
+        "password" : hash_password(config.STORE_PASSWORD),
         "name" : name,
         "address" : address,
         "latitude" : latitude,
