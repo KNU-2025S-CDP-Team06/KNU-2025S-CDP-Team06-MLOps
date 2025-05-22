@@ -1,4 +1,4 @@
 from . import forecast_utils
 
-def send_forecast_data(period="daily"):
-    forecast_utils.integration(period)
+def send_forecast_data():
+    forecast_utils.integration()
