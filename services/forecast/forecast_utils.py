@@ -57,9 +57,9 @@ def load_data(days = 0):
         "store_id": row.store_id,
         "cluster_id": row.cluster,
         "date": row.date,
-        "precipitation": row.precipitation,
+        "rain": row.precipitation,
         "weather": row.weather,
-        "feeling": row.feeling
+        "temp": row.feeling
     } for row in base_results])
 
     # 과거 매출 df 구성
@@ -96,7 +96,7 @@ def send_file(df : pd.DataFrame):
     files = {
         'forecast_file': ('forecast_data.csv', csv_buffer, 'text/csv')
     }
-    url = config.AI_TRIGGER_URL + '/forecast/daily'
+    url = config.AI_TRIGGER_URL + '/forecast'
     response = requests.post(url, files=files)
 
     print(f"상태 코드: {response.status_code}")
