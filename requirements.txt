@@ -4,3 +4,4 @@ pymysql==1.1.1
 datetime==5.5
 cryptography==44.0.3
 pandas==2.2.2
+bcrypt==4.3.0
