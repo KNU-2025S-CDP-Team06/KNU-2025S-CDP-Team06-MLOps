@@ -69,7 +69,7 @@ class Forecast(Base):
     store_id = Column(Integer, ForeignKey('store.id', ondelete="CASCADE"), nullable=False)  # FK (매장 ID)
     date = Column(DateTime, nullable=False)  # 예측 날짜
     prophet_forecast = Column(Integer, nullable=False) # Prophet 모델 예측 매출액
-    xgboost_forecast = Column(Float, nullable=False) # XGBoost 모델 예측 증감률
+    xgboost_forecast = Column(Float, nullable=True) # XGBoost 모델 예측 증감률
     
 
 class Weather(Base):
