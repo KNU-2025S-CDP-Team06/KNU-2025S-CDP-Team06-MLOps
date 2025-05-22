@@ -110,7 +110,7 @@ def initialize_admin():
         "mb_id" : config.ADMIN_ID,
         "name" : config.ADMID_NAME,
         "password" : config.ADMIN_PASSWORD,
-        "Role" : "STORE"
+        "role" : "ADMIN"
     }   
     store_repository.save_store(admin_data)
 
