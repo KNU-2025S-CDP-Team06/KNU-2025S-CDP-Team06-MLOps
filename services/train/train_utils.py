@@ -20,6 +20,7 @@ def send_file(df1, category, df2=None):
     ]
 
     if df2 is not None:
+        print(df2)
         buffer2 = BytesIO()
         df2.to_csv(buffer2, index=False)
         buffer2.seek(0)
@@ -73,7 +74,6 @@ def load_data(category : str):
 
         weather_results = session.query(
             Weather.store_id,
-            Store.cluster,
             Weather.date,
             Weather.precipitation,
             Weather.weather,
@@ -86,11 +86,11 @@ def load_data(category : str):
             return
 
         sales_df = pd.DataFrame(sales_results, columns=[
-            'store_id', 'cluster', 'date', 'total_revenue'
+            'store_id', 'cluster_id', 'date', 'revenue'
         ])
 
         weather_df = pd.DataFrame(weather_results, columns=[
-            'store_id', 'cluster', 'date', 'precipitation', 'weather', 'feeling'
+            'store_id', 'date', 'rain', 'weather', 'temp'
         ])
 
         return [sales_df, weather_df]
