@@ -15,12 +15,9 @@ def load_data(days = 0):
     session: Session = SessionLocal()
 
     tomorrow = date.today() + timedelta(days=(1-days))
-    target_dates = [
-        tomorrow - timedelta(days=1),
-        tomorrow - timedelta(days=2),
-        tomorrow - timedelta(days=7),
-        tomorrow - timedelta(days=14),
-    ]
+    target_dates = []
+    for i in range(1, 15):
+        target_dates.append(tomorrow - timedelta(days=i))
 
     # 오늘 기준 base 데이터
     base_results = (
@@ -72,7 +69,7 @@ def load_data(days = 0):
     # 각 날짜 기준 revenue 붙이기
     base_df["key"] = base_df["store_id"].astype(str) + "_" + base_df["date"].astype(str)
 
-    for d in [1, 2, 7, 14]:
+    for d in range(1, 15):
         dt_col = base_df["date"] - timedelta(days=d)
         base_df[f"merge_key_t-{d}"] = base_df["store_id"].astype(str) + "_" + dt_col.astype(str)
 
@@ -85,7 +82,6 @@ def load_data(days = 0):
 
     # key와 merge_key로 시작하는 컬럼 삭제
     base_df.drop(columns=[col for col in base_df.columns if col.startswith("key") or col.startswith("merge_key")], inplace=True)
-
     return base_df
 
 def send_file(df : pd.DataFrame):
