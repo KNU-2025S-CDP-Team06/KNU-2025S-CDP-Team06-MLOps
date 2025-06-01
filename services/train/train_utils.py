@@ -20,7 +20,6 @@ def send_file(df1, category, df2=None):
     ]
 
     if df2 is not None:
-        print(df2)
         buffer2 = BytesIO()
         df2.to_csv(buffer2, index=False)
         buffer2.seek(0)
